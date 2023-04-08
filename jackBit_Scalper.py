@@ -21,9 +21,7 @@ for champ in matchList:
 
 ## query for odds info
 link = "https://sportservice.inplaynet.tech/api/prematch/getprematchgameall/en/94/?games=" + matchString
-
 matchList = requests.get(link)
-
 print(matchList.json())
 
 

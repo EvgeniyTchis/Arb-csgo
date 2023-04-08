@@ -23,12 +23,11 @@ matchList = json.dumps(matchList.json())
 matchList = json.loads(matchList)
 
 lastPage = matchList["last_page"]
-print(lastPage)
 matchPages = []
 
 matchPages.append(matchList)
-print(matchPages)
-for i in range(2, lastPage):
+
+for i in range(2, lastPage + 1):
     url = "https://csgoempire.com/api/v2/match-betting/flattened?page=" + str(i) + "&per_page=100&provider_id=1"
     matchList = requests.get(url, headers=headers)
     matchList = json.dumps(matchList.json())
@@ -36,6 +35,5 @@ for i in range(2, lastPage):
     matchPages.append(matchList)
 
 
-
-print(matchPages)
+print(json.dumps(matchPages))
 
