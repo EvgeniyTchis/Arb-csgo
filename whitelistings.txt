@@ -1,0 +1,2 @@
+F-SBID( --name "HTTP.block"; --protocol tcp; --service HTTP; --flow from_client;)
+F-SBID( --name "HTTP.example.com.monitor"; --protocol tcp; --service HTTP; --flow from_server; --pattern "server:"; --context header; --no_case; --pattern "ECS"; --context header; --within 20; --depend-on 2314; --scan-range 100,all;) 
