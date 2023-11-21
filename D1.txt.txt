@@ -1,0 +1,26 @@
+1.
+F-SBID( --name "Zoho.ManageEngine.ServiceDeskPlus.SlideEntityValidator.StoredXSS"; --protocol tcp; --flow from_client;
+ --service HTTP; --pattern "/api/v3/tour_details"; --context uri;
+ --within 100,context; --no_case; --pattern "input_data"; --context body; within 50,context; no_case;
+ --pattern "|22|slide_detail|22|"; --context body; --within 200;
+ --pattern "|22|type|22|:|22|embed|22|"; --context body; --within 200; --pattern "|22|link|22|:" --within 100;
+ --pattern !"|22|https://youtube.com/embed/"; --context body; --within 45; --no_case;
+ --pattern !"|22|https://vimeo.com/" --context body; --within 35; --no_case;
+ --pcre !"/^\x22<iframe\x20{1,20}src\x20{0,20}=\x20{0,20}(https:\x2f\x2fyoutube\x2ecom\x2fembed\x2f\w{0,12}|https:\x2f\x2fvimeo\x46com\x2f\d{0,64})\x20{0,20}><\x28iframe>\x22"/i; --context body; --within 100;)
+
+
+
+2.
+F-SBID( --name "SonicWall.GMS.webservices.jar.SQLInjection"; --protocol tcp; --flow from_client;
+ --service HTTP; --pattern "/sgms"; --context uri; --within 30,context;
+ --pattern "subaction="; --context uri; --distance 0;
+ --pattern "inherit" --context uri; --distance 0; --within 20;)
+
+F-SBID( --name "SonicWall.GMS.webservices.jar.SQLInjection"; --protocol tcp; --flow from_client;
+ --service HTTP; --pattern "/sgms/auth"; --context uri; --within 30,context;
+ --pattern "X-FORWARDED-FOR:" --context header; distance 0,context; --no_case
+ --pcre !"/^(\w|\x46|:|\x20){0,200}\r\n/i"; --context header; distance 0;)
+
+F-SBID( --name "SonicWall.GMS.webservices.jar.SQLInjection"; --protocol tcp; --flow from_client;
+ --service HTTP; --pattern "/ws"; --context uri; --within 8,context;
+ --pattern "'" --context uri; distance 0;)
